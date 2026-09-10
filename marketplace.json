@@ -21,7 +21,7 @@
       "source": {
         "git": {
           "url": "https://github.com/fcote/bb-plugins.git",
-          "ref": "master",
+          "ref": "main",
           "subdir": "plugins/spotlight"
         }
       }

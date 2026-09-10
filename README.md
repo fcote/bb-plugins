@@ -18,17 +18,17 @@ When BB Sidebar is available, Spotlight uses its inactivity settings and settled
 
 Spotlight requires **BB 0.42+** and **Plugin SDK 0.4.47+**. Git installation also requires Git, Node.js, and npm on the BB host.
 
-Once these files are published to this repository's `master` branch, add the marketplace and install Spotlight:
+Once these files are published to this repository's `main` branch, add the marketplace and install Spotlight:
 
 ```sh
-bb marketplace add git:https://github.com/fcote/bb-plugins.git@master
+bb marketplace add git:https://github.com/fcote/bb-plugins.git@main
 bb plugin install spotlight@fabien-plugins
 ```
 
 Alternatively, install Spotlight directly from the repository:
 
 ```sh
-bb plugin install git:https://github.com/fcote/bb-plugins.git@master --plugin spotlight
+bb plugin install git:https://github.com/fcote/bb-plugins.git@main --plugin spotlight
 ```
 
 Open Spotlight with **Cmd+K** or **Ctrl+K**, or use **Spotlight search** in the sidebar footer. Use the arrow keys to choose a result, **Enter** to open it, and **Escape** to close the search.
@@ -83,7 +83,7 @@ Each plugin owns its dependencies and build commands. Run npm commands inside th
 3. Add its listing to [marketplace.json](marketplace.json), using an ID that matches the plugin's package identity and a Git or npm source that users can install.
 4. Build and verify the plugin, then publish the source referenced by its listing.
 
-The current Spotlight listing tracks `master` in `https://github.com/fcote/bb-plugins`. The [marketplace schema](https://getbb.app/schemas/marketplace.schema.json) describes supported listing fields, including release ranges and custom icons.
+The current Spotlight listing tracks `main` in `https://github.com/fcote/bb-plugins`. The [marketplace schema](https://getbb.app/schemas/marketplace.schema.json) describes supported listing fields, including release ranges and custom icons.
 
 After publishing catalog changes, refresh discovery metadata:
 

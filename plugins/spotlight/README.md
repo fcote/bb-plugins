@@ -28,7 +28,7 @@ Use `bb plugin dev` to rebuild and reload while editing. `bb plugin disable spot
 Once this repository is pushed:
 
 ```sh
-bb plugin install git:https://github.com/fcote/bb-plugins.git@master --plugin spotlight
+bb plugin install git:https://github.com/fcote/bb-plugins.git@main --plugin spotlight
 ```
 
-The root collection manifest maps `spotlight` to this directory. The marketplace entry follows `master`; publish immutable release tags before switching to version ranges.
+The root collection manifest maps `spotlight` to this directory. The marketplace entry follows `main`; publish immutable release tags before switching to version ranges.
