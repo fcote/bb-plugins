@@ -6,6 +6,7 @@ A personal plugin marketplace for [BB](https://getbb.app). This repository conta
 
 | Plugin | What it does |
 | --- | --- |
+| [GitHub Actions](plugins/github-actions/README.md) | View recent workflow runs for the current thread’s repository, filter by branch or workflow, and open run details. |
 | [Spotlight](plugins/spotlight/README.md) | Search projects and threads from any BB page with **Cmd+K** on macOS or **Ctrl+K** elsewhere. |
 
 Spotlight groups results into **Projects**, **Active threads**, **Inactive threads**, and **Settled threads**. Select a project to open **New thread** with that project preselected, or select a thread to open its conversation.
@@ -71,8 +72,9 @@ This registers listings only. The catalog's plugin sources still point to GitHub
 | Path | Purpose |
 | --- | --- |
 | [marketplace.json](marketplace.json) | Marketplace identity, plugin listings, and install sources. |
-| [.bb/plugins.json](.bb/plugins.json) | Collection index mapping `--plugin spotlight` to its directory. |
+| [.bb/plugins.json](.bb/plugins.json) | Collection index mapping plugin names to their directories. |
 | [plugins/spotlight/](plugins/spotlight/) | Spotlight source, tests, package manifest, and documentation. |
+| [plugins/github-actions/](plugins/github-actions/) | GitHub Actions panel, host integration, tests, and documentation. |
 
 Each plugin owns its dependencies and build commands. Run npm commands inside the plugin directory.
 

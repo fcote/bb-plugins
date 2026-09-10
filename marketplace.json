@@ -25,6 +25,28 @@
           "subdir": "plugins/spotlight"
         }
       }
+    },
+    {
+      "id": "github-actions",
+      "displayName": "GitHub Actions",
+      "description": "View GitHub Actions workflow runs for the current thread\u2019s repository.",
+      "icon": "Workflow",
+      "tags": [
+        "github",
+        "ci",
+        "development"
+      ],
+      "author": {
+        "name": "Fabien",
+        "github": "fcote"
+      },
+      "source": {
+        "git": {
+          "url": "https://github.com/fcote/bb-plugins.git",
+          "ref": "main",
+          "subdir": "plugins/github-actions"
+        }
+      }
     }
   ]
 }

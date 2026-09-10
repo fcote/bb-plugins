@@ -1,0 +1,27 @@
+.gha-panel { display: flex; flex-direction: column; height: 100%; min-height: 0; font-size: 0.875rem; }
+.gha-toolbar { display: flex; align-items: start; gap: 1rem; padding: 1rem; }
+.gha-repository { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.gha-repository p { margin-top: 0.25rem; font-size: 0.75rem; }
+.gha-filters { padding: 0.5rem 1rem 0.75rem; display: grid; gap: 0.75rem; }
+.gha-scope { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.gha-workflow { display: flex; align-items: center; gap: 0.75rem; font-size: 0.75rem; }
+.gha-workflow select { flex: 1; min-width: 0; border-radius: 0.375rem; padding: 0.375rem; font: inherit; }
+.gha-results { overflow: auto; min-height: 0; flex: 1; }
+.gha-results ul { list-style: none; margin: 0; padding: 0; }
+.gha-run { padding: 0.875rem 1rem; display: grid; gap: 0.375rem; }
+.gha-status { display: flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; text-transform: capitalize; }
+.gha-status svg { width: 1rem; height: 1rem; }
+.gha-run-title { line-height: 1.5; overflow-wrap: anywhere; }
+.gha-meta { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; font-size: 0.75rem; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.gha-branch { min-width: 0; }
+.gha-meta time { margin-left: auto; }
+.gha-notice { padding: 0.875rem 1rem; display: grid; gap: 0.375rem; }
+.gha-empty { padding: 2rem 1.25rem; display: grid; gap: 0.75rem; line-height: 1.6; }
+.gha-empty svg { width: 1.5rem; height: 1.5rem; }
+.gha-footer { padding: 0.75rem 1rem; font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+.gha-footer span { display: block; margin-top: 0.25rem; }
+.gha-panel a:focus-visible, .gha-panel select:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; border-radius: 0.25rem; }
+.gha-spinning { animation: gha-spin 1.5s linear infinite; }
+@keyframes gha-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .gha-spinning { animation: none; } }
+@media (pointer: coarse) { .gha-panel button, .gha-panel select { min-height: 2.75rem; } }
