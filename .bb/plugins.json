@@ -1,0 +1,6 @@
+{
+  "$schema": "https://getbb.app/schemas/plugins.schema.json",
+  "schemaVersion": 1,
+  "name": "fabien-plugins",
+  "plugins": [{ "name": "spotlight", "source": "./plugins/spotlight" }]
+}

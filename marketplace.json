@@ -1,0 +1,30 @@
+{
+  "$schema": "https://getbb.app/schemas/marketplace.schema.json",
+  "schemaVersion": 1,
+  "name": "fabien-plugins",
+  "displayName": "Fabien's BB Plugins",
+  "description": "A personal marketplace of plugins for BB.",
+  "plugins": [
+    {
+      "id": "spotlight",
+      "displayName": "Spotlight",
+      "description": "Search projects and threads from anywhere with Cmd+K or Ctrl+K.",
+      "icon": "Search",
+      "tags": [
+        "search",
+        "navigation"
+      ],
+      "author": {
+        "name": "Fabien",
+        "github": "fcote"
+      },
+      "source": {
+        "git": {
+          "url": "https://github.com/fcote/bb-plugins.git",
+          "ref": "master",
+          "subdir": "plugins/spotlight"
+        }
+      }
+    }
+  ]
+}
