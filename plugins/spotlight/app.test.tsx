@@ -2,6 +2,8 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { act, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import { loadPluginApp, renderSlot } from '@get-bb/plugin-sdk/testing/app';
+import { buildCatalog } from './search';
+import { rpcContract } from './server';
 
 const groups = [
   { name: 'Projects', total: 1, items: [{ id: 'p-budget', kind: 'project', title: 'Budget', detail: 'New thread' }] },
@@ -19,7 +21,31 @@ afterEach(() => cleanup());
 function open() { act(() => { window.dispatchEvent(new Event('bb-spotlight:open')); }); }
 
 describe('Spotlight overlay', () => {
-  it('renders four groups and navigates projects to the project compose route', async () => {
+  it.each(['catalog', 'preview'] as const)('opens Personal in projectless compose from the %s', async source => {
+    const projects = [{ id: 'proj_personal', name: 'Personal', kind: 'personal' as const }];
+    const slot = renderSlot(app.appOverlays[0]!, {}, {
+      rpc: { catalog: () => source === 'catalog'
+        ? rpcContract.catalog.output.parse({ entries: buildCatalog(projects, []) })
+        : new Promise(() => {}) },
+      sidebarThreads: { status: 'ready', projects: source === 'preview' ? [{ id: 'proj_personal', name: 'Personal', isPersonal: true }] : [] },
+    });
+    open();
+    const personal = await slot.findByRole('option', { name: 'Personal New thread' });
+    if (source === 'catalog') fireEvent.click(personal);
+    else fireEvent.keyDown(slot.getByRole('combobox'), { key: 'Enter' });
+    expect(slot.inspection.sidebarActionCalls).toEqual([{ method: 'openNewThread', options: { projectId: 'proj_personal' } }]);
+    expect(slot.inspection.navigateCalls).toEqual([]);
+    await waitFor(() => expect(slot.queryByRole('dialog')).toBeNull());
+  });
+  it('treats a regular project named Personal as a project', async () => {
+    const slot = renderSlot(app.appOverlays[0]!, {}, {
+      rpc: { catalog: () => ({ entries: buildCatalog([{ id: 'p-regular', name: 'Personal' }], []) }) },
+    });
+    open();
+    fireEvent.click(await slot.findByRole('option', { name: 'Personal New thread' }));
+    expect(slot.inspection.sidebarActionCalls).toEqual([{ method: 'openNewThread', options: { projectId: 'p-regular' } }]);
+  });
+  it('renders four groups and opens a new thread with the selected project', async () => {
     const slot = renderSlot(app.appOverlays[0]!, {}, { rpc: { catalog: () => ({ entries }) } });
     open();
     const input = await slot.findByRole('combobox');
@@ -27,7 +53,7 @@ describe('Spotlight overlay', () => {
     expect(slot.getAllByRole('group')).toHaveLength(4);
     expect(document.activeElement).toBe(input);
     fireEvent.keyDown(input, { key: 'Enter' });
-    expect(slot.inspection.navigateCalls).toContainEqual({ method: 'toProject', projectId: 'p-budget' });
+    expect(slot.inspection.sidebarActionCalls).toContainEqual({ method: 'openNewThread', options: { projectId: 'p-budget' } });
   });
   it('navigates threads with arrow keys and Enter', async () => {
     const slot = renderSlot(app.appOverlays[0]!, {}, { rpc: { catalog: () => ({ entries }) } });
@@ -103,7 +129,7 @@ describe('cold startup', () => {
     open();
     expect(slot.getByRole('option', { name: /Local project New thread/ })).toBeTruthy();
     fireEvent.keyDown(slot.getByRole('combobox'), { key: 'Enter' });
-    expect(slot.inspection.navigateCalls).toContainEqual({ method: 'toProject', projectId: 'p-local' });
+    expect(slot.inspection.sidebarActionCalls).toContainEqual({ method: 'openNewThread', options: { projectId: 'p-local' } });
   });
 });
 
