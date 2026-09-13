@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
-import { definePluginApp, experimental_useSidebarThreads, useBbNavigate, useRpc } from '@get-bb/plugin-sdk/app';
+import { definePluginApp, experimental_useSidebarThreadActions, experimental_useSidebarThreads, useBbNavigate, useRpc } from '@get-bb/plugin-sdk/app';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Icon } from './components/ui/icon';
 import type { rpcContract } from './server';
@@ -19,6 +19,7 @@ export function Spotlight() {
   const rpc = useRpc<typeof rpcContract>();
   const navigate = useBbNavigate();
   const sidebar = experimental_useSidebarThreads();
+  const sidebarActions = experimental_useSidebarThreadActions();
   const projectPreview = useMemo(() => buildCatalog(sidebar.projects, []), [sidebar.projects]);
   const index = useMemo(() => prepareIndex(catalog ?? projectPreview), [catalog, projectPreview]);
   const groups = useMemo(() => {
@@ -94,7 +95,7 @@ export function Spotlight() {
 
   function select(item: SearchItem) {
     setOpen(false);
-    if (item.kind === 'project') navigate.toProject(item.id);
+    if (item.kind === 'project') sidebarActions.openNewThread({ projectId: item.id });
     else navigate.toThread(item.id);
   }
 
